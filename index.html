@@ -189,10 +189,13 @@ function resizeGame(){
   var vw=vp?vp.width:window.innerWidth;
   var vh=vp?vp.height:window.innerHeight;
   var scaleX=vw/800;
-  var scaleY=vh/600;
+  // Reserve a separate control deck below the canvas on touch devices.
+  var layoutH=playMode==='PHONE'?820:600;
+  wrapper.style.height=layoutH+'px';
+  var scaleY=vh/layoutH;
   var scale=Math.min(scaleX,scaleY);
   var scaledW=800*scale;
-  var scaledH=600*scale;
+  var scaledH=layoutH*scale;
   var offsetX=Math.floor((vw-scaledW)/2);
   var offsetY=Math.floor((vh-scaledH)/2);
   wrapper.style.transform='scale('+scale+')';
@@ -228,21 +231,28 @@ function updateUIVisibility(){
 
 // ── Phone mode enlarged controls ──
 function applyPhoneControls(){
+  mobileControlsEl.style.top=H+'px';
+  mobileControlsEl.style.height='220px';
+  mobileControlsEl.style.background='#080e16';
+  mobileControlsEl.style.borderTop='2px solid #15352b';
   document.querySelectorAll('.dpad-btn').forEach(function(b){
     b.style.width='60px';
     b.style.height='60px';
     b.style.fontSize='26px';
   });
   var dp=document.getElementById('dpad');
-  if(dp){dp.style.width='170px';dp.style.height='170px';dp.style.bottom='110px';dp.style.left='20px';}
+  if(dp){dp.style.width='170px';dp.style.height='170px';dp.style.bottom='25px';dp.style.left='20px';}
   var dUp=document.getElementById('dUp');if(dUp){dUp.style.left='55px';dUp.style.top='0';}
   var dDown=document.getElementById('dDown');if(dDown){dDown.style.left='55px';dDown.style.bottom='0';}
   var dLeft=document.getElementById('dLeft');if(dLeft){dLeft.style.left='0';dLeft.style.top='55px';}
   var dRight=document.getElementById('dRight');if(dRight){dRight.style.right='0';dRight.style.top='55px';}
   var bb=document.getElementById('beamBtn');
-  if(bb){bb.style.width='110px';bb.style.height='110px';bb.style.fontSize='15px';bb.style.right='150px';bb.style.bottom='90px';}
+  if(bb){bb.style.width='110px';bb.style.height='110px';bb.style.fontSize='15px';bb.style.right='150px';bb.style.bottom='55px';}
   var sb=document.getElementById('shootBtn');
-  if(sb){sb.style.width='110px';sb.style.height='110px';sb.style.fontSize='15px';sb.style.right='20px';sb.style.bottom='90px';}
+  if(sb){sb.style.width='110px';sb.style.height='110px';sb.style.fontSize='15px';sb.style.right='20px';sb.style.bottom='55px';}
+  ['pulseBtn','dashBtn'].forEach(function(id){
+    document.getElementById(id).style.bottom='8px';
+  });
 }
 
 // ── Audio ──
