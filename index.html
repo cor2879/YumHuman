@@ -141,6 +141,7 @@ footer{position:fixed;bottom:max(4px,env(safe-area-inset-bottom));width:100%;tex
 </div>
 </div>
 <footer data-id="21">Created by Andrew Cole</footer>
+<script>var vpArcadeRun=null;function vpArcadeSend(data){if(window.parent===window)return;for(var origin of ['https://venomouspress.com','https://www.venomouspress.com'])window.parent.postMessage(data,origin);}</script>
 <script>
 (function(){
 "use strict";
@@ -596,6 +597,7 @@ function transitionTo(newState){
   updateUIVisibility();
 }
 function initCapture(){
+  vpArcadeSend({type:'vp-arcade-start',game:'yumhuman'});
   hideAllOverlays();
   currentEnvironment=getEnvType(cycleNumber);
   captureTimer=90;quotaMet=false;quotaBanner=0;levelCompleteBanner=0;quotaBonusGiven=false;
